@@ -178,7 +178,10 @@ class CourseController extends Controller {
     public static function assignStudents($model, $items_posted) {
         $students = array();
         foreach ($items_posted as $item_post) {
-            $student = CourseController::findStudent($model, $item_post['id']);
+            $student = null;
+            if (!empty($item_post['id'])) {
+                $student = CourseController::findStudent($model, $item_post['id']);
+            }
             if (is_null($student)) {
                 $student = new Student();
             }

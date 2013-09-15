@@ -104,10 +104,12 @@ class Course extends CActiveRecord {
      */
     public function validate($attributes = null, $clearErrors = true) {
         $isValid = parent::validate($attributes, $clearErrors);
-        foreach ($this->students as $student) {
-            if ($student->validate() == false) {
-                $isValid = false;
-                $this->addErrors($student->getErrors());
+        if ($attributes == null) {
+            foreach ($this->students as $student) {
+                if ($student->validate() == false) {
+                    $isValid = false;
+                    $this->addErrors($student->getErrors());
+                }
             }
         }
         return $isValid;

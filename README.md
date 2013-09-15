@@ -91,10 +91,14 @@ CourseController::assignStudents is defined as
     public static function assignStudents($model, $items_posted) {
         $students = array();
         foreach ($items_posted as $item_post) {
-            $student = CourseController::findStudent($model, $item_post['id']);
+            $student = null;
+            if (!empty($item_post['id'])) {
+                $student = CourseController::findStudent($model, $item_post['id']);
+            }
             if (is_null($student)) {
                 $student = new Student();
             }
+            unset($item_post['id']); // Remove primary key
             $student->attributes = $item_post;
             array_push($students, $student);
         }
@@ -110,7 +114,6 @@ CourseController::assignStudents is defined as
         }
         return $student;
     }
-}
 </pre>
 
 I got the idea to solve the tabular input from
