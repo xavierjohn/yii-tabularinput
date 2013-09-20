@@ -1,11 +1,9 @@
-<script type="text/javascript">
-    // initializiation of counters for new elements
-    var lastStudent = 0;
+<?php
 
-    // the subviews rendered with placeholders
-    var trStudent = new String(<?php echo CJSON::encode($this->renderPartial('form/_studentRow', array('id' => 'idRep', 'model' => new Student, 'form' => $form, 'this' => $this), true, false)); ?>);
-
-
+Yii::app()->clientScript->registerScript('studentRow', "var lastStudent = 0;
+    var trStudent = new String(" .
+        CJSON::encode($this->renderPartial('form/_studentRow', array('id' => 'idRep', 'model' => new Student, 'form' => $form, 'this' => $this), true, false)) .
+        ");
     function addStudent(button)
     {
         lastStudent++;
@@ -17,6 +15,6 @@
     {
         button.parents('tr').detach();
     }
-
-</script>
+");
+?>
 
